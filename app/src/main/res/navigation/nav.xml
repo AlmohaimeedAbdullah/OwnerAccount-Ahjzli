@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_signIn_to_forgetPassword"
             app:destination="@id/forgetPassword" />
+        <action
+            android:id="@+id/action_signIn_to_mainInterface"
+            app:destination="@id/mainInterface" />
     </fragment>
     <fragment
         android:id="@+id/register"
@@ -59,4 +62,9 @@
         android:name="com.tuwaiq.owneraccount.MainInterface"
         android:label="fragment_main_interface"
         tools:layout="@layout/fragment_main_interface" />
+    <fragment
+        android:id="@+id/myStore"
+        android:name="com.tuwaiq.owneraccount.MyStore"
+        android:label="fragment_my_store"
+        tools:layout="@layout/fragment_my_store" />
 </navigation>
