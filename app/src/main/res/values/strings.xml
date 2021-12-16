@@ -46,4 +46,5 @@
     <string name="my_store">My Store</string>
     <string name="add_costumer">Add costumer</string>
     <string name="costumer_name">Costumer Name</string>
+    <string name="publish_the_store">Publish The Store</string>
 </resources>
