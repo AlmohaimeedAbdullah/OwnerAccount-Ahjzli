@@ -1,5 +1,6 @@
 package com.tuwaiq.owneraccount
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -8,12 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +31,18 @@ class MyStore : Fragment() {
     private lateinit var branchLocation:TextView
     private lateinit var logOut:TextView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var maxPeople:TextView
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private lateinit var switch: Switch
+    val uId =FirebaseAuth.getInstance().currentUser?.uid
 
+
+    //bottom sheet
+    private lateinit var bsStoreName:EditText
+    private lateinit var bsBranchName:EditText
+    private lateinit var bsBranchLocation:EditText
+    private lateinit var bsMaxPeople:EditText
+    private lateinit var confirmButton:Button
 
 
 
@@ -42,8 +55,6 @@ class MyStore : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         //shared preference
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
@@ -53,9 +64,19 @@ class MyStore : Fragment() {
         email = view.findViewById(R.id.txt_email_Profile)
         branchName = view.findViewById(R.id.txt_branchName)
         branchLocation = view.findViewById(R.id.txt_branchLocation)
+        maxPeople = view.findViewById(R.id.txt_maxPeople)
+
+        switch = view.findViewById(R.id.swPublish)
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            val puplish: Boolean = isChecked
+            Toast.makeText(context, puplish.toString(),
+                Toast.LENGTH_SHORT).show()
+            ifPublish(puplish)
+        }
+
         logOut = view.findViewById(R.id.txtLogOut)
         logOut.setOnClickListener {
-            getSharedPreferences()
+            getSPLogOut()
         }
         editBottomSheet.setOnClickListener {
             bottomSheet()
@@ -63,23 +84,8 @@ class MyStore : Fragment() {
 
     }
 
-
-    private fun bottomSheet() {
-        val view: View = layoutInflater.inflate(R.layout.bottom_sheet, null)
-        val builder = BottomSheetDialog(requireView()?.context)
-        builder.setTitle("Forgot Password")
-
-        /*continueBtn.setOnClickListener {
-            upDateUserInfo(userNameEt.text.toString(), userPhoneEt.text.toString())
-        }*/
-
-        builder.setContentView(view)
-
-        builder.show()
-    }
     fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
 
-        val uId =FirebaseAuth.getInstance().currentUser?.uid
         try {
             val db = FirebaseFirestore.getInstance()
             db.collection("StoreOwner").document("$uId")
@@ -91,11 +97,13 @@ class MyStore : Fragment() {
                         val ownerEmail = it.result!!.getString("storeOwnerEmail")
                         val bName = it.result!!.getString("branchName")
                         val bLocation = it.result!!.getString("branchLocation")
+                        val max = it.result!!.get("maxPeople")
 
                         storeName.text= name.toString()
                         email.text= ownerEmail.toString()
                         branchName.text= bName.toString()
                         branchLocation.text= bLocation.toString()
+                        maxPeople.text = max.toString()
 
                     } else {
                         Log.e("error \n", "errooooooorr")
@@ -110,8 +118,39 @@ class MyStore : Fragment() {
         }
     }
 
+    private fun bottomSheet() {
+        val view: View = layoutInflater.inflate(R.layout.bottom_sheet, null)
+        bsStoreName = view.findViewById(R.id.et_storeName_profile)
+        bsBranchName = view.findViewById(R.id.et_branchName_profile)
+        bsBranchLocation = view.findViewById(R.id.et_branchLocation_profile)
+        bsMaxPeople = view.findViewById(R.id.et_maxPeople_Profile)
+        confirmButton = view.findViewById(R.id.btnEditConfirm)
+
+        bsStoreName.setText(storeName.text)
+        bsBranchName.setText(branchName.text)
+        bsBranchLocation.setText(branchLocation.text)
+        bsMaxPeople.setText(maxPeople.text)
+        confirmButton.setOnClickListener {
+            editProfile()
+        }
+        val builder = BottomSheetDialog(requireView()?.context)
+        builder.setTitle("edit")
+        builder.setContentView(view)
+        builder.show()
+    }
+
+    private fun editProfile() {
+        val uId = FirebaseAuth.getInstance().currentUser?.uid
+        val upDateUserData = Firebase.firestore.collection("StoreOwner")
+        upDateUserData.document(uId.toString()).update("storeName", bsBranchName.text.toString())
+        upDateUserData.document(uId.toString()).update("branchName", bsBranchName.text.toString())
+        upDateUserData.document(uId.toString()).update("branchLocation", bsBranchLocation.text.toString())
+        upDateUserData.document(uId.toString()).update("maxPeople", bsMaxPeople.text.toString())
+        Toast.makeText(context,"edit is successful",Toast.LENGTH_LONG).show()
+    }
+
     //to log out
-    private fun getSharedPreferences(){
+    private fun getSPLogOut(){
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         sharedPreferences.getString("EMAIL","")
         sharedPreferences.getString("PASSWORD","")
@@ -120,25 +159,10 @@ class MyStore : Fragment() {
         findNavController().navigate(MyStoreDirections.actionMyStoreToSignIn())
     }
 
-/*    private fun upDateUserInfo(edName: String, edPhoneNumber: String) {
-
-        val upDateUser = hashMapOf("fullName" to "${edName}",
-            "phoneNumber" to "${edPhoneNumber}")
-        val userRef = Firebase.firestore.collection("Users_Maharat")
-        //-----------UID------------------------
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
-        userRef.document("$uId").set(upDateUser, SetOptions.merge()).addOnCompleteListener {
-            it
-            when {
-                it.isSuccessful -> {
-                    readUserData()
-                    Toast.makeText(context, "UpDate ", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    //dialog اسوي فانكشين لدايلوق  و امرر القيمة في الدخو او في الخطاء
-                }
-            }
-        }
-    }*/
+    private fun ifPublish(puplish:Boolean){
+        val publish =FirebaseFirestore.getInstance()
+        publish.collection("StoreOwner").document("$uId")
+            .update("publish",puplish)
     }
+}
 

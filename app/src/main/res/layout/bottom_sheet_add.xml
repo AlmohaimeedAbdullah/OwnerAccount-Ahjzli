@@ -20,7 +20,7 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/et_costumerName"
+            android:id="@+id/et_costumerName_add"
             android:layout_width="301dp"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textSize="25sp" />
 
         <EditText
-            android:id="@+id/et_phoneNumber"
+            android:id="@+id/et_phoneNumber_add"
             android:layout_width="301dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -41,16 +41,26 @@
             android:hint="@string/phone_number"
             android:textColor="@color/green"
             android:textSize="25sp" />
-
+        <EditText
+            android:id="@+id/et_maxPeople_add"
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:hint="@string/number_of_people"
+            android:inputType="number"
+            android:textColor="@color/green"
+            android:textSize="25sp" />
         <Button
-            android:id="@+id/btnEditConfirm"
+            android:id="@+id/btnAddCus"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="80dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/btn_shape"
-            android:text="@string/edit"
+            android:text="@string/add"
             android:textSize="25sp"
             android:textStyle="bold" />
     </LinearLayout>

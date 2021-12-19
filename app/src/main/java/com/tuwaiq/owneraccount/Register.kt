@@ -102,9 +102,7 @@ class Register : Fragment() {
         try {
             db.document("$uid").set(store)
             withContext(Dispatchers.Main) {
-
                 findNavController().navigate(RegisterDirections.actionRegisterToMainInterface())
-
                 Toast.makeText(context, "saved data", Toast.LENGTH_LONG).show()
             }
 

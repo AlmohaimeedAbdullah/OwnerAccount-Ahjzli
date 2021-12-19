@@ -30,18 +30,7 @@
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/et_email_Profile"
-        android:layout_width="301dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:layout_gravity="center"
-        android:hint="@string/email"
-        android:textColor="@color/green"
-        android:textSize="25sp" />
-
-    <EditText
-        android:id="@+id/et_branchName"
+        android:id="@+id/et_branchName_profile"
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -52,7 +41,7 @@
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/et_branchLocation"
+        android:id="@+id/et_branchLocation_profile"
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -61,6 +50,18 @@
         android:hint="@string/branch_location"
         android:textColor="@color/green"
         android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/et_maxPeople_Profile"
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:hint="@string/max_people"
+            android:inputType="number"
+            android:textColor="@color/green"
+            android:textSize="25sp" />
     <Button
         android:id="@+id/btnEditConfirm"
         android:layout_width="300dp"

@@ -135,7 +135,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:drawableStart="@drawable/ic_add_location"
-                android:text="@string/branch_location"
+                android:hint="@string/branch_location"
                 android:textColor="@color/green" />
 
             <Button

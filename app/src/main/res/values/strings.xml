@@ -47,4 +47,8 @@
     <string name="add_costumer">Add costumer</string>
     <string name="costumer_name">Costumer Name</string>
     <string name="publish_the_store">Publish The Store</string>
+    <string name="max_people">Max People</string>
+    <string name="add">Add</string>
+    <string name="number_of_people">Number of people</string>
+    <string name="customer_name">customer Name</string>
 </resources>
