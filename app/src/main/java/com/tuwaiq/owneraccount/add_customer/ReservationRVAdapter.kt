@@ -3,11 +3,11 @@ package com.tuwaiq.owneraccount
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.tuwaiq.owneraccount.add_customer.AddCustomerData
 
-class ReservationRV(
+class ReservationRVAdapter(
     private val customerListList: List<AddCustomerData>,
 ) : RecyclerView.Adapter<CustomHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
@@ -20,9 +20,9 @@ class ReservationRV(
 
     override fun onBindViewHolder(holder: CustomHolder, position: Int) {
         val custom = customerListList[position]
-        holder.cusName.text = custom.customerName
-        holder.cusNumber.text = custom.phoneNumber
-        holder.cusPeople.text = custom.numberOfPeople
+        holder.cusName.text = custom.userName
+        holder.cusNumber.text = custom.userPhone
+        holder.cusPeople.text = custom.numberOfTheCustomer.toInt().toString()
 
     }
 
@@ -34,10 +34,6 @@ class CustomHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val cusName: TextView = itemView.findViewById(R.id.txtCustomerNameAdd)
     val cusNumber: TextView = itemView.findViewById(R.id.txtPhoneNumberAdd)
     val cusPeople: TextView = itemView.findViewById(R.id.txtNumberOfPeopleAdd)
-
-
-
-
 
     }
 

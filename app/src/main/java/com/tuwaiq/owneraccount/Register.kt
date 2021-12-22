@@ -68,7 +68,6 @@ class Register : Fragment() {
         //Phone number must be 10
         val branchName = enterBranchName.text.toString()
         val branchLocation = enterBranchLocation.text.toString()
-        val account = OwnerData(storeName, email, branchName,branchLocation)
 
         if (storeName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && branchName.isNotEmpty() && branchLocation.isNotEmpty()) {
             //save to the Authentication
@@ -78,6 +77,9 @@ class Register : Fragment() {
                         Toast.makeText(context, "You were registered successful", Toast.LENGTH_LONG)
                             .show()
                         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                        val uidOwner =FirebaseAuth.getInstance().currentUser?.uid
+                        val account = OwnerData(uidOwner.toString(),storeName, email, branchName,branchLocation)
+
                         saveStore(account)
 
                     } else {

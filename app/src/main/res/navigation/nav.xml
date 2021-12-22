@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainInterface"
-        android:name="com.tuwaiq.owneraccount.MainInterface"
+        android:name="com.tuwaiq.owneraccount.add_customer.MainInterface"
         android:label="fragment_main_interface"
         tools:layout="@layout/fragment_main_interface" />
     <fragment

@@ -1,6 +1,7 @@
 package com.tuwaiq.owneraccount
 
 data class OwnerData(
+    var idOwner:String="",
     val storeName:String,
     val storeOwnerEmail:String,
     val branchName:String,

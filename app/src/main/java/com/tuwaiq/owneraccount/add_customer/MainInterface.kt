@@ -1,4 +1,4 @@
-package com.tuwaiq.owneraccount
+package com.tuwaiq.owneraccount.add_customer
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,14 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.tuwaiq.owneraccount.R
+import com.tuwaiq.owneraccount.ReservationRVAdapter
 
 
 class MainInterface : Fragment() {
     private lateinit var rv: RecyclerView
-    private lateinit var myAdapter:ReservationRV
+    private lateinit var myAdapter: ReservationRVAdapter
     private lateinit var cList:MutableList<AddCustomerData>
-    private lateinit var db: FirebaseFirestore
+    private  var db = Firebase.firestore.collection("StoreOwner")
 
 
 
@@ -34,14 +39,15 @@ class MainInterface : Fragment() {
         rv.setHasFixedSize(true)
 
         cList = mutableListOf()
-        myAdapter = ReservationRV(cList)
+        myAdapter = ReservationRVAdapter(cList)
         rv.adapter = myAdapter
         getTheDataList()
     }
     private fun getTheDataList() {
-        db = FirebaseFirestore.getInstance()
-        db.collection("Reservation")
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+            db.document(uid.toString()).collection("Reservation")
+
+                .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if(error != null){
