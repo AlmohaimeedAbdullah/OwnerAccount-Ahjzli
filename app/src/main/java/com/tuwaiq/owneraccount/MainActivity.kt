@@ -27,11 +27,8 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private  lateinit var addEventBar:FloatingActionButton
-    private val db = Firebase.firestore.collection("StoreOwner")/*
-    private lateinit var addCustomerButton: Button
-    private lateinit var cusName:EditText
-    private lateinit var cusPhone:EditText
-    private lateinit var numberOfPeople:EditText*/
+    val uId = FirebaseAuth.getInstance().currentUser?.uid
+    private val db = Firebase.firestore.collection("Reservation")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,15 +97,15 @@ class MainActivity : AppCompatActivity() {
 
         //creation Date and time
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-SS")
         val formatted = current.format(formatter)
         add_customer_button.setOnClickListener {
 
             val customerName2 = cusName1.text.toString()
             val customerPhone2 = cusNumber1.text.toString()
             val numOfPeople2 = cusPeople1.text.toString()
-            val idReqCus = "$customerPhone2$formatted"
-            val customer = AddCustomerData(idReqCus,customerName2, customerPhone2, numOfPeople2.toInt())
+            val idReqCus = "$customerPhone2 $formatted"
+            val customer = AddCustomerData(uId.toString(),idReqCus,customerName2, customerPhone2, numOfPeople2.toInt())
             saveCustomerToTheStore(customer)
         }
     }
@@ -116,10 +113,8 @@ class MainActivity : AppCompatActivity() {
     //save to the fire store
     fun saveCustomerToTheStore(cus: AddCustomerData) =
         CoroutineScope(Dispatchers.IO).launch {
-            val uid = FirebaseAuth.getInstance().currentUser?.uid
-
         try {
-            db.document(uid.toString()).collection("Reservation").document(cus.userId).set(cus)
+            db.document(cus.idRq).set(cus)
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@MainActivity, "customer add", Toast.LENGTH_LONG).show()
             }

@@ -21,7 +21,7 @@ class MainInterface : Fragment() {
     private lateinit var rv: RecyclerView
     private lateinit var myAdapter: ReservationRVAdapter
     private lateinit var cList:MutableList<AddCustomerData>
-    private  var db = Firebase.firestore.collection("StoreOwner")
+    private  var db = Firebase.firestore.collection("Reservation")
 
 
 
@@ -41,9 +41,10 @@ class MainInterface : Fragment() {
         cList = mutableListOf()
         myAdapter = ReservationRVAdapter(cList)
         rv.adapter = myAdapter
-        getTheDataList()
+       // getTheDataList()
+        getTheReservationList()
     }
-    private fun getTheDataList() {
+/*    private fun getTheDataList() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
             db.document(uid.toString()).collection("Reservation")
 
@@ -64,5 +65,27 @@ class MainInterface : Fragment() {
                 }
 
             })
-    }
+    }*/
+private fun getTheReservationList() {
+
+    val id =FirebaseAuth.getInstance().currentUser?.uid
+    db.whereEqualTo("ownerId", id.toString())
+        .addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                if (error != null) {
+                    Log.e("Firestore Add", error.message.toString())
+                    return
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+
+                        cList.add(dc.document.toObject(AddCustomerData::class.java))
+                    }
+                }
+                myAdapter.notifyDataSetChanged()
+            }
+        })
+}
 }
