@@ -31,6 +31,7 @@ class MyStore : Fragment() {
     private lateinit var branchLocation:TextView
     private lateinit var logOut:TextView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences2: SharedPreferences
     private lateinit var maxPeople:TextView
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switch: Switch
@@ -59,6 +60,8 @@ class MyStore : Fragment() {
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
 
+
+
         editBottomSheet = view.findViewById(R.id.btnEdit)
         storeName = view.findViewById(R.id.txt_storeName_profile)
         email = view.findViewById(R.id.txt_email_Profile)
@@ -66,7 +69,21 @@ class MyStore : Fragment() {
         branchLocation = view.findViewById(R.id.txt_branchLocation)
         maxPeople = view.findViewById(R.id.txt_maxPeople)
 
+        sharedPreferences2 = this.requireActivity().getSharedPreferences(
+            "OwnerProfile", Context.MODE_PRIVATE)
+        val sp1 = sharedPreferences2.getString("spStoreName"," ")
+        val sp2 = sharedPreferences2.getString("spEmail"," ")
+        val sp3 = sharedPreferences2.getString("spBranchName"," ")
+        val sp4 = sharedPreferences2.getString("spBranchLocation"," ")
+        val sp5 = sharedPreferences2.getString("spMax"," ")
+        storeName.text= sp1
+        email.text= sp2
+        branchName.text= sp3
+        branchLocation.text= sp4
+        maxPeople.text = sp5
+
         switch = view.findViewById(R.id.swPublish)
+
         switch.setOnCheckedChangeListener { _, isChecked ->
             val puplish: Boolean = isChecked
             Toast.makeText(context, puplish.toString(),
@@ -99,11 +116,14 @@ class MyStore : Fragment() {
                         val bLocation = it.result!!.getString("branchLocation")
                         val max = it.result!!.get("maxPeople")
 
-                        storeName.text= name.toString()
-                        email.text= ownerEmail.toString()
-                        branchName.text= bName.toString()
-                        branchLocation.text= bLocation.toString()
-                        maxPeople.text = max.toString()
+                        sharedPreferences2 = requireActivity().getSharedPreferences("OwnerProfile", Context.MODE_PRIVATE)
+                        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
+                        editor3.putString("spStoreName",name.toString())
+                        editor3.putString("spEmail",ownerEmail.toString())
+                        editor3.putString("spBranchName",bName.toString())
+                        editor3.putString("spBranchLocation",bLocation.toString())
+                        editor3.putString("spMax",max.toString())
+                        editor3.apply()
 
                     } else {
                         Log.e("error \n", "errooooooorr")
@@ -126,12 +146,20 @@ class MyStore : Fragment() {
         bsMaxPeople = view.findViewById(R.id.et_maxPeople_Profile)
         confirmButton = view.findViewById(R.id.btnEditConfirm)
 
-        bsStoreName.setText(storeName.text)
-        bsBranchName.setText(branchName.text)
-        bsBranchLocation.setText(branchLocation.text)
+        bsStoreName.setText(storeName.text.toString())
+        bsBranchName.setText(branchName.text.toString())
+        bsBranchLocation.setText(branchLocation.text.toString())
         bsMaxPeople.setText(maxPeople.text)
+
         confirmButton.setOnClickListener {
             editProfile()
+            sharedPreferences2 = requireActivity().getSharedPreferences("OwnerProfile", Context.MODE_PRIVATE)
+            val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
+            editor3.putString("spStoreName",bsStoreName.text.toString())
+            editor3.putString("spBranchName",bsBranchName.text.toString())
+            editor3.putString("spBranchLocation",bsBranchLocation.text.toString())
+            editor3.putString("spMax",bsMaxPeople.text.toString())
+            editor3.apply()
         }
         val builder = BottomSheetDialog(requireView()?.context)
         builder.setTitle("edit")
