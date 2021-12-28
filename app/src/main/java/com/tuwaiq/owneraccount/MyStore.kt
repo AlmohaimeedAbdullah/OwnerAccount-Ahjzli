@@ -36,8 +36,6 @@ class MyStore : Fragment() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switch: Switch
     val uId =FirebaseAuth.getInstance().currentUser?.uid
-
-
     //bottom sheet
     private lateinit var bsStoreName:EditText
     private lateinit var bsBranchName:EditText
@@ -59,8 +57,6 @@ class MyStore : Fragment() {
         //shared preference
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
-
-
 
         editBottomSheet = view.findViewById(R.id.btnEdit)
         storeName = view.findViewById(R.id.txt_storeName_profile)
@@ -84,11 +80,12 @@ class MyStore : Fragment() {
 
         switch = view.findViewById(R.id.swPublish)
 
+        val switchValue = sharedPreferences2.getBoolean("publish",false)
+        switch.isChecked = switchValue
         switch.setOnCheckedChangeListener { _, isChecked ->
-            val puplish: Boolean = isChecked
-            Toast.makeText(context, puplish.toString(),
-                Toast.LENGTH_SHORT).show()
-            ifPublish(puplish)
+            val publish: Boolean = isChecked
+            Toast.makeText(context, publish.toString(),Toast.LENGTH_SHORT).show()
+            ifPublish(publish)
         }
 
         logOut = view.findViewById(R.id.txtLogOut)
@@ -173,7 +170,7 @@ class MyStore : Fragment() {
         upDateUserData.document(uId.toString()).update("storeName", bsBranchName.text.toString())
         upDateUserData.document(uId.toString()).update("branchName", bsBranchName.text.toString())
         upDateUserData.document(uId.toString()).update("branchLocation", bsBranchLocation.text.toString())
-        upDateUserData.document(uId.toString()).update("maxPeople", bsMaxPeople.text.toString())
+        upDateUserData.document(uId.toString()).update("maxPeople", bsMaxPeople.text.toString().toInt())
         Toast.makeText(context,"edit is successful",Toast.LENGTH_LONG).show()
     }
 
@@ -187,10 +184,15 @@ class MyStore : Fragment() {
         findNavController().navigate(MyStoreDirections.actionMyStoreToSignIn())
     }
 
-    private fun ifPublish(puplish:Boolean){
-        val publish =FirebaseFirestore.getInstance()
-        publish.collection("StoreOwner").document("$uId")
-            .update("publish",puplish)
+    private fun ifPublish(publish:Boolean):Boolean{
+        val dataBase =FirebaseFirestore.getInstance()
+        dataBase.collection("StoreOwner").document("$uId")
+            .update("publish",publish)
+        sharedPreferences2 = requireActivity().getSharedPreferences("OwnerProfile", Context.MODE_PRIVATE)
+        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
+        editor3.putBoolean("publish",publish)
+        editor3.apply()
+        return publish
     }
 }
 
