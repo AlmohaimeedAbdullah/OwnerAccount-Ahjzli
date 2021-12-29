@@ -47,8 +47,7 @@ class CustomHolder(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnCl
     override fun onClick(v: View?) {
 
         cusNumber.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:${cusNumber.text}")
+            val intent = Intent(Intent.ACTION_DIAL,Uri.parse("tel:${cusNumber.text}"))
             v?.context?.startActivity(intent)
         }
 

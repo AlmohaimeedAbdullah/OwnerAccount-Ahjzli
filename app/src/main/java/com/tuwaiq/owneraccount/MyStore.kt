@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class MyStore : Fragment() {
@@ -35,7 +30,6 @@ class MyStore : Fragment() {
     private lateinit var maxPeople:TextView
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switch: Switch
-    val uId =FirebaseAuth.getInstance().currentUser?.uid
     //bottom sheet
     private lateinit var bsStoreName:EditText
     private lateinit var bsBranchName:EditText
@@ -49,7 +43,7 @@ class MyStore : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_my_store, container, false)
-        getStoreInfo()
+        //getStoreInfo()
         return view
     }
 
@@ -98,6 +92,7 @@ class MyStore : Fragment() {
 
     }
 
+/*
     fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
 
         try {
@@ -134,6 +129,7 @@ class MyStore : Fragment() {
             }
         }
     }
+*/
 
     private fun bottomSheet() {
         val view: View = layoutInflater.inflate(R.layout.bottom_sheet, null)
@@ -148,8 +144,10 @@ class MyStore : Fragment() {
         bsBranchLocation.setText(branchLocation.text.toString())
         bsMaxPeople.setText(maxPeople.text)
 
+        val builder = BottomSheetDialog(requireView().context)
         confirmButton.setOnClickListener {
-            editProfile()
+            editStoreProfile()
+            //save the changes in the sp
             sharedPreferences2 = requireActivity().getSharedPreferences("OwnerProfile", Context.MODE_PRIVATE)
             val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
             editor3.putString("spStoreName",bsStoreName.text.toString())
@@ -157,20 +155,20 @@ class MyStore : Fragment() {
             editor3.putString("spBranchLocation",bsBranchLocation.text.toString())
             editor3.putString("spMax",bsMaxPeople.text.toString())
             editor3.apply()
+            builder.dismiss()
         }
-        val builder = BottomSheetDialog(requireView()?.context)
         builder.setTitle("edit")
         builder.setContentView(view)
         builder.show()
     }
 
-    private fun editProfile() {
-        val uId = FirebaseAuth.getInstance().currentUser?.uid
+    private fun editStoreProfile() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData = Firebase.firestore.collection("StoreOwner")
-        upDateUserData.document(uId.toString()).update("storeName", bsBranchName.text.toString())
-        upDateUserData.document(uId.toString()).update("branchName", bsBranchName.text.toString())
-        upDateUserData.document(uId.toString()).update("branchLocation", bsBranchLocation.text.toString())
-        upDateUserData.document(uId.toString()).update("maxPeople", bsMaxPeople.text.toString().toInt())
+        upDateUserData.document(uid.toString()).update("storeName", bsBranchName.text.toString())
+        upDateUserData.document(uid.toString()).update("branchName", bsBranchName.text.toString())
+        upDateUserData.document(uid.toString()).update("branchLocation", bsBranchLocation.text.toString())
+        upDateUserData.document(uid.toString()).update("maxPeople", bsMaxPeople.text.toString().toInt())
         Toast.makeText(context,"edit is successful",Toast.LENGTH_LONG).show()
     }
 
@@ -185,6 +183,7 @@ class MyStore : Fragment() {
     }
 
     private fun ifPublish(publish:Boolean):Boolean{
+        val uId =FirebaseAuth.getInstance().currentUser?.uid
         val dataBase =FirebaseFirestore.getInstance()
         dataBase.collection("StoreOwner").document("$uId")
             .update("publish",publish)

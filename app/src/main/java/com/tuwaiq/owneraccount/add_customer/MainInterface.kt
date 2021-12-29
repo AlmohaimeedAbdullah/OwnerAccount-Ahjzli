@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.tuwaiq.owneraccount.OwnerData
 import com.tuwaiq.owneraccount.R
 import com.tuwaiq.owneraccount.ReservationRVAdapter
 
@@ -22,8 +24,6 @@ class MainInterface : Fragment() {
     private lateinit var myAdapter: ReservationRVAdapter
     private lateinit var cList:MutableList<AddCustomerData>
     private  var db = Firebase.firestore.collection("Reservation")
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,31 +41,42 @@ class MainInterface : Fragment() {
         cList = mutableListOf()
         myAdapter = ReservationRVAdapter(cList)
         rv.adapter = myAdapter
+
+        val taskTouchHelper= ItemTouchHelper(simpleCallback)
+        taskTouchHelper.attachToRecyclerView(rv)
        // getTheDataList()
         getTheReservationList()
     }
-/*    private fun getTheDataList() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-            db.document(uid.toString()).collection("Reservation")
+    private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return true
+        }
 
-                .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if(error != null){
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.layoutPosition
+            val deletedFav = cList[position]
+            when (direction) {
+                ItemTouchHelper.LEFT -> {
+                    deleteReservation(deletedFav)
+                    cList.remove(deletedFav)
 
-                        Log.e("Firestore Error", error.message.toString())
-                        return
-                    }
-                    for (dc: DocumentChange in value?.documentChanges!!){
-                        if (dc.type == DocumentChange.Type.ADDED){
-                            cList.add(dc.document.toObject(AddCustomerData::class.java))
-                        }
-                    }
-                    myAdapter.notifyDataSetChanged()
+                    ReservationRVAdapter(cList).notifyItemRemoved(position)
                 }
-
-            })
-    }*/
+                ItemTouchHelper.RIGHT -> {
+                    deleteReservation(deletedFav)
+                    cList.remove(deletedFav)
+                    ReservationRVAdapter(cList).notifyItemRemoved(position)
+                }
+            }
+        }
+    }
+    private fun deleteReservation(delete:AddCustomerData){
+        db.document(delete.idRq).delete()
+    }
 private fun getTheReservationList() {
 
     val id =FirebaseAuth.getInstance().currentUser?.uid
