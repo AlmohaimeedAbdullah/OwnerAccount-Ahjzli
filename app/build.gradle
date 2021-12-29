@@ -65,4 +65,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     //material design
     implementation 'com.google.android.material:material:1.4.0'
+    //swipe color
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
 }

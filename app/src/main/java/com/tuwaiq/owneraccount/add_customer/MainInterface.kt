@@ -1,6 +1,7 @@
 package com.tuwaiq.owneraccount.add_customer
 
 import android.annotation.SuppressLint
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.tuwaiq.owneraccount.OwnerData
 import com.tuwaiq.owneraccount.R
 import com.tuwaiq.owneraccount.ReservationRVAdapter
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 class MainInterface : Fragment() {
@@ -72,6 +74,15 @@ class MainInterface : Fragment() {
                     ReservationRVAdapter(cList).notifyItemRemoved(position)
                 }
             }
+        }
+        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#E80000"))
+                .addSwipeRightBackgroundColor(android.graphics.Color.parseColor("#E80000"))
+                .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                .create()
+                .decorate()
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
     }
     private fun deleteReservation(delete:AddCustomerData){
