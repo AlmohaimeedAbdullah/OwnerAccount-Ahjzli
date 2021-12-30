@@ -1,4 +1,4 @@
-package com.tuwaiq.owneraccount
+package com.tuwaiq.owneraccount.registeration
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -16,8 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.tuwaiq.owneraccount.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

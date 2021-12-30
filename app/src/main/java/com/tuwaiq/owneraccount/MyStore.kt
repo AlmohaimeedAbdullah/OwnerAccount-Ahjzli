@@ -51,6 +51,9 @@ class MyStore : Fragment() {
         //shared preference
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
+        sharedPreferences2 = requireActivity().getSharedPreferences(
+            "OwnerProfile", Context.MODE_PRIVATE)
+
 
         editBottomSheet = view.findViewById(R.id.btnEdit)
         storeName = view.findViewById(R.id.txt_storeName_profile)
@@ -148,7 +151,6 @@ class MyStore : Fragment() {
         confirmButton.setOnClickListener {
             editStoreProfile()
             //save the changes in the sp
-            sharedPreferences2 = requireActivity().getSharedPreferences("OwnerProfile", Context.MODE_PRIVATE)
             val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
             editor3.putString("spStoreName",bsStoreName.text.toString())
             editor3.putString("spBranchName",bsBranchName.text.toString())
@@ -165,7 +167,7 @@ class MyStore : Fragment() {
     private fun editStoreProfile() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData = Firebase.firestore.collection("StoreOwner")
-        upDateUserData.document(uid.toString()).update("storeName", bsBranchName.text.toString())
+        upDateUserData.document(uid.toString()).update("storeName", bsStoreName.text.toString())
         upDateUserData.document(uid.toString()).update("branchName", bsBranchName.text.toString())
         upDateUserData.document(uid.toString()).update("branchLocation", bsBranchLocation.text.toString())
         upDateUserData.document(uid.toString()).update("maxPeople", bsMaxPeople.text.toString().toInt())
@@ -179,6 +181,7 @@ class MyStore : Fragment() {
         sharedPreferences.getString("PASSWORD","")
         editor.clear()
         editor.apply()
+
         findNavController().navigate(MyStoreDirections.actionMyStoreToSignIn())
     }
 

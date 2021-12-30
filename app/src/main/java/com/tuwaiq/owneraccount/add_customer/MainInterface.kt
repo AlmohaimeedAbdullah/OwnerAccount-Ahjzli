@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.tuwaiq.owneraccount.OwnerData
 import com.tuwaiq.owneraccount.R
 import com.tuwaiq.owneraccount.ReservationRVAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -25,7 +24,7 @@ class MainInterface : Fragment() {
     private lateinit var rv: RecyclerView
     private lateinit var myAdapter: ReservationRVAdapter
     private lateinit var cList:MutableList<AddCustomerData>
-    private  var db = Firebase.firestore.collection("Reservation")
+    private  var db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -60,38 +59,54 @@ class MainInterface : Fragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
-            val deletedFav = cList[position]
+            val deleteCus = cList[position]
             when (direction) {
                 ItemTouchHelper.LEFT -> {
-                    deleteReservation(deletedFav)
-                    cList.remove(deletedFav)
-
+                    deleteReservation(deleteCus)
+                    cList.remove(deleteCus)
                     ReservationRVAdapter(cList).notifyItemRemoved(position)
+
+                    addNumberTheOwner(deleteCus.ownerId,deleteCus.numberOfTheCustomer)
                 }
                 ItemTouchHelper.RIGHT -> {
-                    deleteReservation(deletedFav)
-                    cList.remove(deletedFav)
+                    deleteReservation(deleteCus)
+                    cList.remove(deleteCus)
                     ReservationRVAdapter(cList).notifyItemRemoved(position)
+                    addNumberTheOwner(deleteCus.ownerId,deleteCus.numberOfTheCustomer)
+
                 }
             }
         }
+
+        private fun addNumberTheOwner(ownerId:String, numberOfTheCustomer:Int) {
+            db.collection("StoreOwner").document(ownerId)
+                .get().addOnCompleteListener {
+                    if (it.result?.exists()!!) {
+                        val maxP = it.result!!.get("maxPeople").toString().toInt()
+                        db.collection("StoreOwner").document(ownerId)
+                            .update("maxPeople", numberOfTheCustomer + maxP)
+                    }
+                }
+        }
+
         override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
             RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                 .addSwipeLeftBackgroundColor(android.graphics.Color.parseColor("#E80000"))
                 .addSwipeRightBackgroundColor(android.graphics.Color.parseColor("#E80000"))
                 .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                .addSwipeRightActionIcon(R.drawable.ic_delete)
                 .create()
                 .decorate()
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
     }
     private fun deleteReservation(delete:AddCustomerData){
-        db.document(delete.idRq).delete()
+        db.collection("Reservation").document(delete.idRq).delete()
     }
 private fun getTheReservationList() {
 
     val id =FirebaseAuth.getInstance().currentUser?.uid
-    db.whereEqualTo("ownerId", id.toString())
+    db.collection("Reservation").whereEqualTo("ownerId", id.toString())
         .addSnapshotListener(object : EventListener<QuerySnapshot> {
 
             @SuppressLint("NotifyDataSetChanged")

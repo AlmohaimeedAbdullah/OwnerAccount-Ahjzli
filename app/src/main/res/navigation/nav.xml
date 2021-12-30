@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/signIn"
-        android:name="com.tuwaiq.owneraccount.SignIn"
+        android:name="com.tuwaiq.owneraccount.registeration.SignIn"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/register"
-        android:name="com.tuwaiq.owneraccount.Register"
+        android:name="com.tuwaiq.owneraccount.registeration.Register"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPassword"
-        android:name="com.tuwaiq.owneraccount.ForgetPassword"
+        android:name="com.tuwaiq.owneraccount.registeration.ForgetPassword"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" >
         <action

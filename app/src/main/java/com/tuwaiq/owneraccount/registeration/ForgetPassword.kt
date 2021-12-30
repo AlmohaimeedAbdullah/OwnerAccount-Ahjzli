@@ -1,4 +1,4 @@
-package com.tuwaiq.owneraccount
+package com.tuwaiq.owneraccount.registeration
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.tuwaiq.owneraccount.R
 
 
 class ForgetPassword : Fragment() {
