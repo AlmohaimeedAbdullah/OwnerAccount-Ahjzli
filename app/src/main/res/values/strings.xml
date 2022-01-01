@@ -50,5 +50,12 @@
     <string name="max_people">Max People</string>
     <string name="add">Add</string>
     <string name="number_of_people">Number of people</string>
+    <string name="how_many_person">How many person?</string>
     <string name="customer_name">customer Name</string>
+    <string name="store_name_text">Store Name:</string>
+    <string name="email_text">Email:</string>
+    <string name="branch_name_text">Branch Name:</string>
+    <string name="branch_location_text">Branch Location:</string>
+    <string name="the_capacity">The Capacity:</string>
+    <string name="costumers">:Costumers</string>
 </resources>

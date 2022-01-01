@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_img"
+    android:background="@color/blue"
     tools:context=".registeration.SignIn">
 
     <TextView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/sign_in"
-                android:textColor="@color/green"
+                android:textColor="@color/blue"
                 android:textSize="50sp"
                 android:textStyle="bold" />
 
@@ -49,18 +49,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:gravity="center"
-                android:textColorHint="@color/green"
+                android:textColorHint="@color/blue"
                 app:startIconDrawable="@drawable/ic_email"
-                app:startIconTint="@color/green">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_email_sign_in"
                     android:layout_width="301dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="@color/light_blue"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/green"
+                    android:textColor="@color/blue"
                     android:textSize="25sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,19 +69,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:textColorHint="@color/green"
+                android:textColorHint="@color/blue"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/green">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_password_sign_in"
                     android:layout_width="301dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="@color/light_blue"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textColor="@color/green"
+                    android:textColor="@color/blue"
                     android:textSize="25sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +97,7 @@
                     android:minHeight="48dp"
                     android:layout_gravity="start"
                     android:text="@string/remember_me"
-                    android:textColor="@color/green"
+                    android:textColor="@color/blue"
                     android:textSize="18sp" />
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="17dp"
-                    android:textColor="@color/green"
+                    android:textColor="@color/blue"
                     android:text="@string/password_with_q_mark"/>
 
             </LinearLayout>
@@ -144,7 +144,7 @@
                     android:id="@+id/txt_dont_have_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/green"
+                    android:textColor="@color/blue"
                     android:layout_marginStart="3dp"
                     android:text="@string/account"
                     android:layout_gravity="center"/>

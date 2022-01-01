@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_img"
+    android:background="@color/blue"
     tools:context=".add_customer.MainInterface">
 
     <FrameLayout
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ahjzli"
-            android:textColor="@color/green"
+            android:textColor="@color/blue"
             android:textSize="50sp"
             android:textStyle="bold"
             android:layout_gravity="center|top"
