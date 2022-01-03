@@ -45,7 +45,8 @@ class MainInterface : Fragment() {
 
         val taskTouchHelper= ItemTouchHelper(simpleCallback)
         taskTouchHelper.attachToRecyclerView(rv)
-       // getTheDataList()
+
+        deleteReservation()
         getTheReservationList()
     }
     private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
@@ -59,20 +60,20 @@ class MainInterface : Fragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
-            val deleteCus = cList[position]
+            val delete = cList[position]
             when (direction) {
                 ItemTouchHelper.LEFT -> {
-                    deleteReservation(deleteCus)
-                    cList.remove(deleteCus)
+                    db.collection("Reservation").document(delete.idRq).delete()
+                    cList.remove(delete)
                     ReservationRVAdapter(cList).notifyItemRemoved(position)
 
-                    addNumberTheOwner(deleteCus.ownerId,deleteCus.numberOfTheCustomer)
+                    addNumberTheOwner(delete.ownerId,delete.numberOfTheCustomer)
                 }
                 ItemTouchHelper.RIGHT -> {
-                    deleteReservation(deleteCus)
-                    cList.remove(deleteCus)
+                    db.collection("Reservation").document(delete.idRq).delete()
+                    cList.remove(delete)
                     ReservationRVAdapter(cList).notifyItemRemoved(position)
-                    addNumberTheOwner(deleteCus.ownerId,deleteCus.numberOfTheCustomer)
+                    addNumberTheOwner(delete.ownerId,delete.numberOfTheCustomer)
 
                 }
             }
@@ -100,8 +101,27 @@ class MainInterface : Fragment() {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
     }
-    private fun deleteReservation(delete:AddCustomerData){
-        db.collection("Reservation").document(delete.idRq).delete()
+    private fun deleteReservation(){
+        val id =FirebaseAuth.getInstance().currentUser?.uid
+        db.collection("Reservation").whereEqualTo("ownerId", id)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore Add", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.REMOVED) {
+
+                            cList.remove(dc.document.toObject(AddCustomerData::class.java))
+                            Log.d("delete Owner",cList.toString())
+                        }
+                    }
+                    myAdapter.notifyDataSetChanged()
+                }
+            })
     }
 private fun getTheReservationList() {
 

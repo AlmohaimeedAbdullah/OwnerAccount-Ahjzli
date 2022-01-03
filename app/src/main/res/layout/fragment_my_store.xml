@@ -55,12 +55,13 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:text="@string/store_name_text"
+                    android:textStyle="bold"
                     android:layout_marginStart="30dp"
                     android:textColor="@color/blue"
                     android:textSize="25sp"/>
             <TextView
                 android:id="@+id/txt_storeName_profile"
-                android:layout_width="301dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:layout_gravity="center"
@@ -80,12 +81,13 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:textStyle="bold"
                     android:text="@string/email_text"
                     android:textColor="@color/blue"
                     android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_email_Profile"
-                    android:layout_width="301dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:layout_gravity="center"
@@ -105,12 +107,13 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:textStyle="bold"
                     android:text="@string/branch_name_text"
                     android:textColor="@color/blue"
                     android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_branchName"
-                    android:layout_width="301dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
@@ -129,13 +132,14 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:textStyle="bold"
                     android:text="@string/branch_location_text"
                     android:textColor="@color/blue"
                     android:textSize="25sp"/>
 
                 <TextView
                     android:id="@+id/txt_branchLocation"
-                    android:layout_width="301dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
@@ -157,10 +161,11 @@
                     android:layout_marginStart="30dp"
                     android:text="@string/the_capacity"
                     android:textColor="@color/blue"
+                    android:textStyle="bold"
                     android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_maxPeople"
-                    android:layout_width="301dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"

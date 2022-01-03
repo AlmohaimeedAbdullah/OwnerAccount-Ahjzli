@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,14 @@ import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.tuwaiq.owneraccount.add_customer.AddCustomerData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MyStore : Fragment() {
@@ -33,7 +39,6 @@ class MyStore : Fragment() {
     //bottom sheet
     private lateinit var bsStoreName:EditText
     private lateinit var bsBranchName:EditText
-    private lateinit var bsBranchLocation:EditText
     private lateinit var bsMaxPeople:EditText
     private lateinit var confirmButton:Button
 
@@ -48,12 +53,12 @@ class MyStore : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        getStoreInfo()
         //shared preference
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
         sharedPreferences2 = requireActivity().getSharedPreferences(
             "OwnerProfile", Context.MODE_PRIVATE)
-
 
         editBottomSheet = view.findViewById(R.id.btnEdit)
         storeName = view.findViewById(R.id.txt_storeName_profile)
@@ -95,56 +100,15 @@ class MyStore : Fragment() {
 
     }
 
-/*
-    fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
-
-        try {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("StoreOwner").document("$uId")
-                .get().addOnCompleteListener {
-
-                    if (it.result?.exists()!!) {
-                        //+++++++++++++++++++++++++++++++++++++++++
-                        val name = it.result!!.getString("storeName")
-                        val ownerEmail = it.result!!.getString("storeOwnerEmail")
-                        val bName = it.result!!.getString("branchName")
-                        val bLocation = it.result!!.getString("branchLocation")
-                        val max = it.result!!.get("maxPeople")
-
-                        sharedPreferences2 = requireActivity().getSharedPreferences("OwnerProfile", Context.MODE_PRIVATE)
-                        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
-                        editor3.putString("spStoreName",name.toString())
-                        editor3.putString("spEmail",ownerEmail.toString())
-                        editor3.putString("spBranchName",bName.toString())
-                        editor3.putString("spBranchLocation",bLocation.toString())
-                        editor3.putString("spMax",max.toString())
-                        editor3.apply()
-
-                    } else {
-                        Log.e("error \n", "errooooooorr")
-                    }
-                }
-
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
-    }
-*/
-
     private fun bottomSheet() {
         val view: View = layoutInflater.inflate(R.layout.bottom_sheet, null)
         bsStoreName = view.findViewById(R.id.et_storeName_profile)
         bsBranchName = view.findViewById(R.id.et_branchName_profile)
-        bsBranchLocation = view.findViewById(R.id.et_branchLocation_profile)
         bsMaxPeople = view.findViewById(R.id.et_maxPeople_Profile)
         confirmButton = view.findViewById(R.id.btnEditConfirm)
 
         bsStoreName.setText(storeName.text.toString())
         bsBranchName.setText(branchName.text.toString())
-        bsBranchLocation.setText(branchLocation.text.toString())
         bsMaxPeople.setText(maxPeople.text)
 
         val builder = BottomSheetDialog(requireView().context)
@@ -154,9 +118,11 @@ class MyStore : Fragment() {
             val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
             editor3.putString("spStoreName",bsStoreName.text.toString())
             editor3.putString("spBranchName",bsBranchName.text.toString())
-            editor3.putString("spBranchLocation",bsBranchLocation.text.toString())
             editor3.putString("spMax",bsMaxPeople.text.toString())
             editor3.apply()
+            storeName.text= bsStoreName.text.toString()
+            branchName.text= bsBranchName.text.toString()
+            maxPeople.text = bsMaxPeople.text.toString()
             builder.dismiss()
         }
         builder.setTitle("edit")
@@ -167,11 +133,9 @@ class MyStore : Fragment() {
     private fun editStoreProfile() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData = Firebase.firestore.collection("StoreOwner")
-        upDateUserData.document(uid.toString()).update("storeName", bsStoreName.text.toString())
-        upDateUserData.document(uid.toString()).update("branchName", bsBranchName.text.toString())
-        upDateUserData.document(uid.toString()).update("branchLocation", bsBranchLocation.text.toString())
-        upDateUserData.document(uid.toString()).update("maxPeople", bsMaxPeople.text.toString().toInt())
-        Toast.makeText(context,"edit is successful",Toast.LENGTH_LONG).show()
+        upDateUserData.document(uid.toString()).update("storeName", bsStoreName.text.toString(),
+            "branchName", bsBranchName.text.toString(),
+            "maxPeople", bsMaxPeople.text.toString().toInt())
     }
 
     //to log out
@@ -195,6 +159,31 @@ class MyStore : Fragment() {
         editor3.putBoolean("publish",publish)
         editor3.apply()
         return publish
+    }
+
+    fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
+        val uId =FirebaseAuth.getInstance().currentUser?.uid
+        try {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("StoreOwner").document("$uId")
+                .get().addOnCompleteListener {
+                    if (it.result?.exists()!!) {
+                        val max = it.result!!.get("maxPeople")
+                        //to save the info in the sp
+                        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
+                        editor3.putString("spMax",max.toString())
+                        editor3.apply()
+                        maxPeople.text= max.toString()
+                    }
+                }
+
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
+                Log.e("FUNCTION createUserFirestore", "${e.message}")
+            }
+        }
     }
 }
 
