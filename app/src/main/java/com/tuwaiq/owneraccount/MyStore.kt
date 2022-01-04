@@ -53,7 +53,8 @@ class MyStore : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        getStoreInfo()
+        //getStoreInfo()
+        deleteReservation()
         //shared preference
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
@@ -161,29 +162,30 @@ class MyStore : Fragment() {
         return publish
     }
 
-    fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
-        val uId =FirebaseAuth.getInstance().currentUser?.uid
-        try {
-            val db = FirebaseFirestore.getInstance()
-            db.collection("StoreOwner").document("$uId")
-                .get().addOnCompleteListener {
-                    if (it.result?.exists()!!) {
-                        val max = it.result!!.get("maxPeople")
-                        //to save the info in the sp
-                        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
-                        editor3.putString("spMax",max.toString())
-                        editor3.apply()
-                        maxPeople.text= max.toString()
+    private fun deleteReservation(){
+        val id =FirebaseAuth.getInstance().currentUser?.uid
+        val db = FirebaseFirestore.getInstance()
+        db.collection("StoreOwner").whereEqualTo("idOwner", id)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+                @SuppressLint("NotifyDataSetChanged")
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.e("Firestore Add", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.MODIFIED) {
+                            val max = dc.document.data.get("maxPeople")
+                            val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
+                            editor3.putString("spMax",max.toString())
+                            editor3.apply()
+                            maxPeople.text= max.toString()
+                            Log.d("maxPeople",max.toString())
+                        }
                     }
                 }
-
-
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()
-                Log.e("FUNCTION createUserFirestore", "${e.message}")
-            }
-        }
+            })
     }
 }
 

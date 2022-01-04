@@ -58,4 +58,6 @@
     <string name="branch_location_text">Branch Location:</string>
     <string name="the_capacity">The Capacity:</string>
     <string name="costumers">:Costumers</string>
+    <string name="_0">0</string>
+    <string name="dash">/</string>
 </resources>
