@@ -60,4 +60,5 @@
     <string name="costumers">:Costumers</string>
     <string name="_0">0</string>
     <string name="dash">/</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

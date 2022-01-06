@@ -170,10 +170,6 @@ class MyStore : Fragment() {
 
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if (error != null) {
-                        Log.e("Firestore Add", error.message.toString())
-                        return
-                    }
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
                             val max = dc.document.data.get("maxPeople")

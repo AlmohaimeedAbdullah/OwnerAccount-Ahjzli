@@ -1,6 +1,8 @@
 package com.tuwaiq.owneraccount.registeration
 
+import android.R.attr
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.tuwaiq.owneraccount.MapsActivity
 import com.tuwaiq.owneraccount.OwnerData
 import com.tuwaiq.owneraccount.R
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +28,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import android.app.Activity
 
+import android.R.attr.data
+
+
+
+
+const val LAUNCH_SECOND_ACTIVITY = 0
 
 class Register : Fragment() {
     private val db = Firebase.firestore.collection("StoreOwner")
@@ -37,6 +47,7 @@ class Register : Fragment() {
     private lateinit var signUpButton:Button
     private lateinit var haveAccount: TextView
     private lateinit var sharedPreferences2: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -66,8 +77,32 @@ class Register : Fragment() {
         signUpButton.setOnClickListener {
             registerUser()
         }
+        enterBranchLocation.setOnClickListener {
+            val intent = Intent(view.context,MapsActivity::class.java)
+            startActivityForResult(intent,0)
+
+        }
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === LAUNCH_SECOND_ACTIVITY) {
+            if (resultCode === Activity.RESULT_OK) {
+                val latitude: String? = data?.getStringExtra("latitude")
+                val longitude: String? = data?.getStringExtra("longitude")
+                Log.e("testLatAndLon","$latitude , $longitude")
+                enterBranchLocation.setText("$latitude , $longitude")
+            }
+            if (resultCode === Activity.RESULT_CANCELED) {
+                // Write your code if there's no result
+                Log.e("cancel","canceled")
+            }
+        }
+        Log.e("out","out")
+
+    }
+
     // registerUser()
     private fun registerUser() {
         val storeName = enterStoreName.text.toString()
@@ -76,7 +111,6 @@ class Register : Fragment() {
         //Phone number must be 10
         val branchName = enterBranchName.text.toString()
         val branchLocation = enterBranchLocation.text.toString()
-
 
         if (storeName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && branchName.isNotEmpty() && branchLocation.isNotEmpty()) {
             //save to the Authentication
@@ -87,7 +121,7 @@ class Register : Fragment() {
                             .show()
 
                         val uidOwner =FirebaseAuth.getInstance().currentUser?.uid
-                        val account = OwnerData(uidOwner.toString(),"${storeName}", email, "${branchName}",branchLocation)
+                        val account = OwnerData(uidOwner.toString(), storeName, email,branchName,branchLocation)
                         saveStore(account)
 
                     } else {

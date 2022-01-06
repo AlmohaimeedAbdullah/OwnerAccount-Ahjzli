@@ -8,14 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import pl.droidsonroids.gif.GifImageView
+import com.airbnb.lottie.LottieAnimationView
 
 
 class Splash : Fragment() {
-    private lateinit var logoGif: GifImageView
+    private lateinit var logoLottie: LottieAnimationView
     private lateinit var logoTextView: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,10 +23,10 @@ class Splash : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        logoGif =view.findViewById(R.id.gif_logo)
+        logoLottie =view.findViewById(R.id.lottieAnimationView)
         logoTextView = view.findViewById(R.id.txt_logo)
 
-        logoGif.startAnimation(AnimationUtils.loadAnimation(context, R.anim.logo_img))
+        logoLottie.startAnimation(AnimationUtils.loadAnimation(context, R.anim.logo_img))
         logoTextView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.text_logo))
         Handler().postDelayed({
             findNavController().navigate(SplashDirections.actionSplashToSignIn())
