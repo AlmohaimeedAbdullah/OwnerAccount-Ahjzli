@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center|top"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <TextView
@@ -48,12 +48,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="7dp"
                     android:text="@string/store_name_text"
                     android:textStyle="bold"
                     android:layout_marginStart="30dp"
@@ -66,6 +68,7 @@
                 android:background="@color/white"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="7dp"
                 android:layout_marginStart="2dp"
                 android:hint="@string/store_name"
                 android:textColor="@color/blue"
@@ -74,13 +77,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginBottom="7dp"
                     android:textStyle="bold"
                     android:text="@string/email_text"
                     android:textColor="@color/blue"
@@ -92,6 +97,7 @@
                     android:background="@color/white"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="7dp"
                     android:hint="@string/email"
                     android:textColor="@color/blue"
                     android:textSize="25sp" />
@@ -99,7 +105,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,6 +114,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginBottom="7dp"
                     android:textStyle="bold"
                     android:text="@string/branch_name_text"
                     android:textColor="@color/blue"
@@ -117,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
+                    android:layout_marginBottom="7dp"
                     android:hint="@string/branch_name"
                     android:textColor="@color/blue"
                     android:layout_marginTop="15dp"
@@ -125,13 +134,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginBottom="7dp"
                     android:textStyle="bold"
                     android:text="@string/branch_location_text"
                     android:textColor="@color/blue"
@@ -144,6 +155,7 @@
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:hint="@string/branch_location"
+                    android:layout_marginBottom="7dp"
                     android:textColor="@color/blue"
                     android:layout_marginTop="15dp"
                     android:textSize="25sp" />
@@ -152,13 +164,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginBottom="7dp"
                     android:text="@string/the_capacity"
                     android:textColor="@color/blue"
                     android:textStyle="bold"
@@ -169,6 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
+                    android:layout_marginBottom="7dp"
                     android:hint="@string/max_people"
                     android:textColor="@color/blue"
                     android:layout_marginTop="15dp"
@@ -191,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/loge_out"
                 android:textSize="17sp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="60dp"
                 app:drawableStartCompat="@drawable/ic_logout"
                 android:textColor="@color/red" />

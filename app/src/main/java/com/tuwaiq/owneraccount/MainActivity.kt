@@ -109,37 +109,74 @@ class MainActivity : AppCompatActivity() {
             val customerPhone2 = cusNumber1.text.toString()
             val numOfPeople2 = cusPeople1.text.toString()
             val idReqCus = "$customerPhone2 $formatted"
-            val customer = AddCustomerData(uId.toString(),idReqCus,customerName2, customerPhone2, numOfPeople2.toInt())
+            if (customerName2.isNotEmpty() && customerPhone2.isNotEmpty() && numOfPeople2.isNotEmpty()) {
+                if (customerPhone2.length == 10) {
+                    if (numOfPeople2.toInt() > 0) {
+                        val customer = AddCustomerData(
+                            uId.toString(),
+                            idReqCus,
+                            customerName2,
+                            customerPhone2,
+                            numOfPeople2.toInt()
+                        )
 
-            val db = FirebaseFirestore.getInstance()
-            db.collection("StoreOwner").document("$uId")
-                .get().addOnCompleteListener {
+                        val db = FirebaseFirestore.getInstance()
+                        db.collection("StoreOwner").document("$uId")
+                            .get().addOnCompleteListener {
 
-                    if (it.result?.exists()!!) {
+                                if (it.result?.exists()!!) {
 
-                        val max = it.result!!.get("maxPeople")
-                        maxP=max.toString().toInt()
-                        enterNumber = cusPeople1.text.toString().toInt()
-                        if ( enterNumber <= maxP){
-                            maxP -= enterNumber
-                            saveCustomerToTheStore(customer)
-                        }else {
-                            if (maxP == 0) {
-                                Toast.makeText(this@MainActivity, "There is no more space!!",
-                                    Toast.LENGTH_SHORT).show()
-                            } else {
-                                Toast.makeText(
-                                    this@MainActivity, "You can't reserve more than: $maxP",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                    val max = it.result!!.get("maxPeople")
+                                    maxP = max.toString().toInt()
+                                    enterNumber = cusPeople1.text.toString().toInt()
+                                    if (enterNumber <= maxP) {
+                                        maxP -= enterNumber
+                                        saveCustomerToTheStore(customer)
+                                    } else {
+                                        if (maxP == 0) {
+                                            Toast.makeText(
+                                                this@MainActivity, "There is no more space!!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                this@MainActivity,
+                                                "You can't reserve more than: $maxP",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "maxPeople ${maxP}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    Log.e("error \n", "errooooooorr")
+                                }
                             }
-                        }
-                        Toast.makeText(this@MainActivity, "maxPeople ${maxP}", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.e("error \n", "errooooooorr")
+                        builder.dismiss()
+                    }else{
+                        Toast.makeText(
+                            this@MainActivity,
+                            "please enter number bigger then 0",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                }else{
+                    Toast.makeText(
+                        this@MainActivity,
+                        "please make sure the phone number are correct",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            builder.dismiss()
+            }else{
+                Toast.makeText(
+                    this@MainActivity,
+                    "fill the blanks",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         builder.setTitle("add")
         builder.setContentView(view)

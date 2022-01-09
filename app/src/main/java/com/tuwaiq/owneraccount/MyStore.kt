@@ -112,17 +112,31 @@ class MyStore : Fragment() {
 
         val builder = BottomSheetDialog(requireView().context)
         confirmButton.setOnClickListener {
-            editStoreProfile()
-            //save the changes in the sp
-            val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
-            editor3.putString("spStoreName",bsStoreName.text.toString())
-            editor3.putString("spBranchName",bsBranchName.text.toString())
-            editor3.putString("spMax",bsMaxPeople.text.toString())
-            editor3.apply()
-            storeName.text= bsStoreName.text.toString()
-            branchName.text= bsBranchName.text.toString()
-            maxPeople.text = bsMaxPeople.text.toString()
-            builder.dismiss()
+            if (bsStoreName.text.isNotEmpty() && bsBranchName.text.isNotEmpty() && bsMaxPeople.text.isNotEmpty()){
+                if (bsMaxPeople.text.toString().toInt() > 0) {
+                    editStoreProfile()
+                    //save the changes in the sp
+                    val editor3: SharedPreferences.Editor = sharedPreferences2.edit()
+                    editor3.putString("spStoreName", bsStoreName.text.toString())
+                    editor3.putString("spBranchName", bsBranchName.text.toString())
+                    editor3.putString("spMax", bsMaxPeople.text.toString())
+                    editor3.apply()
+                    storeName.text = bsStoreName.text.toString()
+                    branchName.text = bsBranchName.text.toString()
+                    maxPeople.text = bsMaxPeople.text.toString()
+                    builder.dismiss()
+                }else{
+                    Toast.makeText(
+                        context, "please enter number bigger then 0",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }else{
+                Toast.makeText(
+                    context, "fill the blanks",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         builder.setTitle("edit")
         builder.setContentView(view)
