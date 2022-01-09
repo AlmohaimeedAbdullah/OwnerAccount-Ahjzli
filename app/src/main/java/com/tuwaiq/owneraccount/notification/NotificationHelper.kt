@@ -27,7 +27,7 @@ class NotificationHelper(val context: Context) {
         val pendingIntent = PendingIntent.getActivity(context,0,intent, PendingIntent.FLAG_MUTABLE)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.my_logo)
+            .setSmallIcon(R.drawable.ic_notificatios)
             .setContentTitle(title)
             .setContentText(message)
             .setContentIntent(pendingIntent)
