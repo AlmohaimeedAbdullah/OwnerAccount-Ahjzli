@@ -1,6 +1,8 @@
 package com.tuwaiq.owneraccount.add_customer
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +17,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.tuwaiq.owneraccount.MainActivity
 import com.tuwaiq.owneraccount.R
 import com.tuwaiq.owneraccount.ReservationRVAdapter
+import com.tuwaiq.owneraccount.notification.AhjzliNotificationRepo
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
@@ -25,6 +29,8 @@ class MainInterface : Fragment() {
     private lateinit var myAdapter: ReservationRVAdapter
     private lateinit var cList:MutableList<AddCustomerData>
     private  var db = Firebase.firestore
+    private lateinit var shared:SharedPreferences
+    private lateinit var editor3:SharedPreferences.Editor
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,6 +41,9 @@ class MainInterface : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        shared = this.requireActivity().getSharedPreferences(
+            "count", Context.MODE_PRIVATE)
+
         rv = view.findViewById(R.id.reservationRV)
         rv.layoutManager = LinearLayoutManager(this.context)
         rv.setHasFixedSize(true)
@@ -46,7 +55,6 @@ class MainInterface : Fragment() {
         val taskTouchHelper= ItemTouchHelper(simpleCallback)
         taskTouchHelper.attachToRecyclerView(rv)
 
-        deleteReservation()
         getTheReservationList()
     }
     private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
@@ -101,28 +109,7 @@ class MainInterface : Fragment() {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
     }
-    private fun deleteReservation(){
-        val id =FirebaseAuth.getInstance().currentUser?.uid
-        db.collection("Reservation").whereEqualTo("ownerId", id)
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
 
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if (error != null) {
-                        Log.e("Firestore Add", error.message.toString())
-                        return
-                    }
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.REMOVED) {
-
-                            cList.remove(dc.document.toObject(AddCustomerData::class.java))
-                            Log.d("delete Owner",cList.toString())
-                        }
-                    }
-                    myAdapter.notifyDataSetChanged()
-                }
-            })
-    }
 private fun getTheReservationList() {
 
     val id =FirebaseAuth.getInstance().currentUser?.uid
@@ -137,12 +124,35 @@ private fun getTheReservationList() {
                 }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-
                         cList.add(dc.document.toObject(AddCustomerData::class.java))
+                        rv.adapter = myAdapter
+                        val count = cList.size
+                        val sp = shared.getInt("count",9)
+                        if (sp < count){
+                            countOfTheList(count)
+                            val name = dc.document.data.get("userName")
+                            val numberOfCustomers =dc.document.data.get("numberOfTheCustomer")
+                            AhjzliNotificationRepo().myNotification(MainActivity(),"$name has reserved for $numberOfCustomers customer/s, just now")
+                        }
+
+                    }else{
+                        cList.remove(dc.document.toObject(AddCustomerData::class.java))
+                        rv.adapter = myAdapter
+                        val updateCount = cList.size
+                        editor3 =shared.edit()
+                        editor3.putInt("count",updateCount)
+                            .apply()
+
                     }
                 }
                 myAdapter.notifyDataSetChanged()
             }
         })
 }
+    fun countOfTheList(count:Int){
+
+        editor3 =shared.edit()
+        editor3.putInt("count",count)
+            .apply()
+    }
 }

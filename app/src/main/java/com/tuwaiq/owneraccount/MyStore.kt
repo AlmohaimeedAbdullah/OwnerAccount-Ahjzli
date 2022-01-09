@@ -58,8 +58,6 @@ class MyStore : Fragment() {
         //shared preference
         sharedPreferences = this.requireActivity().getSharedPreferences(
             "OwnerShared", Context.MODE_PRIVATE)
-        sharedPreferences2 = requireActivity().getSharedPreferences(
-            "OwnerProfile", Context.MODE_PRIVATE)
 
         editBottomSheet = view.findViewById(R.id.btnEdit)
         storeName = view.findViewById(R.id.txt_storeName_profile)
