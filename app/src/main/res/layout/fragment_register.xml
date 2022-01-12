@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@drawable/bk1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".registeration.Register">
 
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/ahjzli"
-        android:textColor="@color/white"
+        android:textColor="@color/background"
         android:textSize="80sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/sign_up"
-                android:textColor="@color/blue"
+                android:textColor="@color/main_color"
                 android:textSize="50sp"
                 android:textStyle="bold" />
 
@@ -56,17 +56,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/main_color"
                 app:startIconDrawable="@drawable/ic_storefront"
-                app:startIconTint="@color/blue">
+                app:startIconTint="@color/main_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_store_name_sign_up"
                     android:layout_width="301dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/light_blue"
+                    android:background="@color/light_silver"
                     android:hint="@string/store_name"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:inputType="textPersonName"
                     android:textSize="25sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -76,18 +76,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/main_color"
                 app:startIconDrawable="@drawable/ic_email"
-                app:startIconTint="@color/blue">
+                app:startIconTint="@color/main_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_email_sign_up"
                     android:layout_width="301dp"
                     android:layout_height="match_parent"
-                    android:background="@color/light_blue"
+                    android:background="@color/light_silver"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,19 +96,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/main_color"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/blue">
+                app:startIconTint="@color/main_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_password_sign_up"
                     android:layout_width="301dp"
                     android:layout_height="match_parent"
-                    android:background="@color/light_blue"
+                    android:background="@color/light_silver"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -118,18 +118,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/main_color"
                 app:startIconDrawable="@drawable/ic_location_on"
-                app:startIconTint="@color/blue">
+                app:startIconTint="@color/main_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_branch_name_sign_up"
                     android:layout_width="301dp"
                     android:layout_height="match_parent"
-                    android:background="@color/light_blue"
+                    android:background="@color/light_silver"
                     android:hint="@string/branch_name"
                     android:inputType="text"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,11 +140,11 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:textSize="25sp"
-                android:background="@color/light_blue"
+                android:background="@color/light_silver"
                 android:drawableStart="@drawable/ic_add_location"
                 android:hint="@string/branch_location"
-                android:textColorHint="@color/blue"
-                android:textColor="@color/blue" />
+                android:textColorHint="@color/main_color"
+                android:textColor="@color/main_color" />
 
             <Button
                 android:id="@+id/btnSignUp"
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/do_you_have_an"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/text_main_color" />
 
                 <TextView
                     android:id="@+id/txt_have_account"
@@ -178,7 +178,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="3dp"
                     android:text="@string/account"
-                    android:textColor="@color/blue" />
+                    android:textColor="@color/main_color" />
             </LinearLayout>
 
         </LinearLayout>

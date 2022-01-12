@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/blue"
+    android:background="@drawable/bk1"
     tools:context=".MyStore">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/ahjzli"
-        android:textColor="@color/white"
+        android:textColor="@color/background"
         android:textSize="80sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/my_store"
-                android:textColor="@color/blue"
+                android:textColor="@color/main_color"
                 android:textSize="50sp"
                 android:textStyle="bold" />
 
@@ -59,19 +59,19 @@
                     android:text="@string/store_name_text"
                     android:textStyle="bold"
                     android:layout_marginStart="30dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp"/>
             <TextView
                 android:id="@+id/txt_storeName_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/background"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="7dp"
                 android:layout_marginStart="2dp"
                 android:hint="@string/store_name"
-                android:textColor="@color/blue"
+                android:textColor="@color/main_color"
                 android:textSize="25sp" />
             </LinearLayout>
 
@@ -88,18 +88,18 @@
                     android:layout_marginBottom="7dp"
                     android:textStyle="bold"
                     android:text="@string/email_text"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_email_Profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/background"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="7dp"
                     android:hint="@string/email"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp" />
             </LinearLayout>
 
@@ -117,17 +117,17 @@
                     android:layout_marginBottom="7dp"
                     android:textStyle="bold"
                     android:text="@string/branch_name_text"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_branchName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/white"
+                    android:background="@color/background"
                     android:layout_marginBottom="7dp"
                     android:hint="@string/branch_name"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:layout_marginTop="15dp"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -145,7 +145,7 @@
                     android:layout_marginBottom="7dp"
                     android:textStyle="bold"
                     android:text="@string/branch_location_text"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textSize="25sp"/>
 
                 <TextView
@@ -153,10 +153,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/white"
+                    android:background="@color/background"
                     android:hint="@string/branch_location"
                     android:layout_marginBottom="7dp"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:layout_marginTop="15dp"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -174,7 +174,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginBottom="7dp"
                     android:text="@string/the_capacity"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:textStyle="bold"
                     android:textSize="25sp"/>
                 <TextView
@@ -182,10 +182,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/white"
+                    android:background="@color/background"
                     android:layout_marginBottom="7dp"
                     android:hint="@string/max_people"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/main_color"
                     android:layout_marginTop="15dp"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -198,7 +198,7 @@
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 android:layout_marginTop="30dp"
-                android:textColor="@color/blue"
+                android:textColor="@color/main_color"
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/txtLogOut"

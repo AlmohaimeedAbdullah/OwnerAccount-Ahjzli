@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="25sp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_main_color"
             android:text="@string/costumer_name"
             android:gravity="center"/>
 
@@ -32,17 +32,17 @@
             android:layout_width="301dp"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_gravity="center"
             android:hint="@string/costumer_name"
-            android:textColor="@color/blue"
+            android:textColor="@color/main_color"
             android:textSize="25sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="25sp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_main_color"
             android:text="@string/phone_number"
             android:gravity="center"/>
 
@@ -51,18 +51,18 @@
             android:layout_width="301dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_gravity="center"
             android:inputType="phone"
             android:hint="@string/phone_number"
-            android:textColor="@color/blue"
+            android:textColor="@color/main_color"
             android:textSize="25sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="25sp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_main_color"
             android:text="@string/how_many_person"
             android:gravity="center"/>
         <EditText
@@ -70,11 +70,11 @@
             android:layout_width="301dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_gravity="center"
             android:hint="@string/number_of_people"
             android:inputType="number"
-            android:textColor="@color/blue"
+            android:textColor="@color/main_color"
             android:textSize="25sp" />
         <Button
             android:id="@+id/btnAddCus"

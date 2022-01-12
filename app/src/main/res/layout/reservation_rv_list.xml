@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:hint="@string/customer_name"
-        android:textColor="@color/black"
+        android:textColor="@color/text_main_color"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="@string/phone_number"
-        android:textColor="@color/blue"
+        android:textColor="@color/main_color"
         android:textSize="20sp"
         app:drawableStartCompat="@drawable/ic_call"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,12 +53,12 @@
             android:layout_marginTop="16dp"
             android:hint="@string/max_people"
             android:textSize="18sp"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/main_color"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/costumers"
-            android:textColor="@color/black"
+            android:textColor="@color/text_main_color"
             android:layout_marginTop="16dp"
             android:textSize="18sp" />
     </LinearLayout>
