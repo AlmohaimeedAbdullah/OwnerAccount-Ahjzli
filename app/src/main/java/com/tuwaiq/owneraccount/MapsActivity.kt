@@ -42,9 +42,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         buttonClicked.setOnClickListener {
             var returnIntent =Intent()
-/*            var bundle = Bundle()
-            bundle.putString("latitude",lat)
-            bundle.putString("longitude",lon)*/
             returnIntent.putExtra("latitude",lat)
             returnIntent.putExtra("longitude",lon)
             Log.e("print", "$lat $lon")
@@ -126,15 +123,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         currentMarker?.showInfoWindow()
 
     }
-    /*
-    buttonClicked.setOnClickLesinter{
-    var returnIntent =Intent()
-    returnIntent.putExtraString("latitude",strLatitude)
-    returnIntent.putExtraString("longitude",strLongitude)
-    setResult(Activity.RESULT_OK,returnIntent)
-    finish()
-    }
-    */
 
     fun getAddress(lat: Double, lon: Double):String {
         //change the lat and lon to address

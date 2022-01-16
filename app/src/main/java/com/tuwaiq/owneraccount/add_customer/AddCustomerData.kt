@@ -5,5 +5,6 @@ data class AddCustomerData(
     val idRq:String="",
     val userName :String="",
     val userPhone: String="",
-    val numberOfTheCustomer:Int=0
+    val numberOfTheCustomer:Int=0,
+    val date:String=""
 )

@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity() {
                             idReqCus,
                             customerName2,
                             customerPhone2,
-                            numOfPeople2.toInt()
-                        )
+                            numOfPeople2.toInt(),
+                            formatted)
 
                         val db = FirebaseFirestore.getInstance()
                         db.collection("StoreOwner").document("$uId")

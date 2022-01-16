@@ -200,16 +200,7 @@
                 android:layout_marginTop="30dp"
                 android:textColor="@color/main_color"
                 android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/txtLogOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/loge_out"
-                android:textSize="17sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="60dp"
-                app:drawableStartCompat="@drawable/ic_logout"
-                android:textColor="@color/red" />
+
             <Button
                 android:id="@+id/btnEdit"
                 android:layout_width="300dp"
@@ -221,6 +212,18 @@
                 android:text="@string/edit"
                 android:textSize="25sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtLogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loge_out"
+                android:textSize="17sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="60dp"
+                app:drawableStartCompat="@drawable/ic_logout"
+                android:textColor="@color/red" />
 
 
 

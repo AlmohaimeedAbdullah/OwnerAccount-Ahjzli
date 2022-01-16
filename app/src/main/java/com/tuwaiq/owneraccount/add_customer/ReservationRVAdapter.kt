@@ -26,6 +26,9 @@ class ReservationRVAdapter(
         holder.cusName.text = custom.userName
         holder.cusNumber.text = custom.userPhone
         holder.cusPeople.text = custom.numberOfTheCustomer.toString()
+        val splitTime = custom.date.split("-")
+        val getTime = "${splitTime[1]}/${splitTime[2]} - ${splitTime[3]}:${splitTime[4]}"
+        holder.time.text = getTime
 
 
     }
@@ -35,6 +38,7 @@ class ReservationRVAdapter(
 
 class CustomHolder(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener {
 
+    val time :TextView = itemView.findViewById(R.id.txtTime_reserve)
     val cusName: TextView = itemView.findViewById(R.id.txtCustomerNameAdd)
     val cusNumber: TextView = itemView.findViewById(R.id.txtPhoneNumberAdd)
     val cusPeople: TextView = itemView.findViewById(R.id.txtNumberOfPeopleAdd)

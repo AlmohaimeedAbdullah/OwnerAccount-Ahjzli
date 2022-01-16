@@ -12,54 +12,70 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
+        android:id="@+id/txtTime_reserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="2dp"
+        android:hint="@string/time"
+        android:textColor="@color/main_color"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_time"
+        app:drawableTint="@color/main_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/txtCustomerNameAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/customer_name"
         android:textColor="@color/text_main_color"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTime_reserve" />
 
     <TextView
         android:id="@+id/txtPhoneNumberAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/phone_number"
         android:textColor="@color/main_color"
         android:textSize="20sp"
         app:drawableStartCompat="@drawable/ic_call"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCustomerNameAdd"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCustomerNameAdd" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPhoneNumberAdd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtPhoneNumberAdd"
-        app:layout_constraintTop_toBottomOf="@+id/txtCustomerNameAdd">
+        app:layout_constraintStart_toEndOf="@+id/txtPhoneNumberAdd">
 
         <TextView
             android:id="@+id/txtNumberOfPeopleAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/max_people"
-            android:textSize="18sp"
-            android:textColor="@color/main_color"/>
+            android:hint="@string/_0"
+            android:layout_marginEnd="3dp"
+            android:textColor="@color/main_color"
+            android:textSize="18sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/costumers"
             android:textColor="@color/text_main_color"
-            android:layout_marginTop="16dp"
             android:textSize="18sp" />
     </LinearLayout>
 

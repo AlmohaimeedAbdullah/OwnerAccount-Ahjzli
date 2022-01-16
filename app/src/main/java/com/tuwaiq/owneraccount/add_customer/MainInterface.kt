@@ -126,6 +126,7 @@ private fun getTheReservationList() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         cList.add(dc.document.toObject(AddCustomerData::class.java))
                         rv.adapter = myAdapter
+                        //for notification
                         val count = cList.size
                         val sp = shared.getInt("count",9)
                         if (sp < count){
