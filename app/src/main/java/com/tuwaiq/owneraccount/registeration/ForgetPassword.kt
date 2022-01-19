@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +18,7 @@ import com.tuwaiq.owneraccount.R
 class ForgetPassword : Fragment() {
     private lateinit var enterYourEmail: TextInputEditText
     private lateinit var sendThePassButton: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,9 +32,12 @@ class ForgetPassword : Fragment() {
 
         enterYourEmail = view.findViewById(R.id.tiet_email_forgotPass)
         sendThePassButton = view.findViewById(R.id.btnSendThePass)
+        progressBar = view.findViewById(R.id.progressBarForget)
 
 
         sendThePassButton.setOnClickListener {
+            sendThePassButton.isClickable = false
+            progressBar.isVisible = true
             sendTheEmail()
         }
     }
@@ -42,6 +48,8 @@ class ForgetPassword : Fragment() {
 
         if (email.isEmpty()) {
             Toast.makeText(context, "Please enter your E-mail", Toast.LENGTH_SHORT).show()
+            sendThePassButton.isClickable = true
+            progressBar.isVisible = false
         } else {
             FirebaseAuth.getInstance().sendPasswordResetEmail(email)
                 .addOnCompleteListener { task ->
@@ -52,6 +60,8 @@ class ForgetPassword : Fragment() {
                     } else {
                         Toast.makeText(context, "The email wasn't correct",
                             Toast.LENGTH_LONG).show()
+                        sendThePassButton.isClickable = true
+                        progressBar.isVisible = false
                     }
                 }
         }

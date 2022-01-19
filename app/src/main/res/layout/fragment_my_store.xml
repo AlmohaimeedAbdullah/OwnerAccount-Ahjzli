@@ -29,205 +29,157 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center|top"
-            android:layout_marginTop="25dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="16dp"
                 android:text="@string/my_store"
                 android:textColor="@color/main_color"
                 android:textSize="50sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="7dp"
-                    android:text="@string/store_name_text"
-                    android:textStyle="bold"
-                    android:layout_marginStart="30dp"
-                    android:textColor="@color/main_color"
-                    android:textSize="25sp"/>
-            <TextView
-                android:id="@+id/txt_storeName_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="7dp"
-                android:layout_marginStart="2dp"
-                android:hint="@string/store_name"
-                android:textColor="@color/main_color"
-                android:textSize="25sp" />
-            </LinearLayout>
+                android:layout_height="0dp"
+                android:layout_gravity="center|top"
+                android:orientation="vertical"
+                android:background="@drawable/my_store_shape"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="16dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txt_storeName_profile"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginStart="30dp"
                     android:layout_marginBottom="7dp"
-                    android:textStyle="bold"
-                    android:text="@string/email_text"
+                    android:gravity="center"
+                    android:hint="@string/store_name"
                     android:textColor="@color/main_color"
-                    android:textSize="25sp"/>
+                    android:textSize="25sp"
+                    app:drawableStartCompat="@drawable/ic_storefront"
+                    app:drawableTint="@color/main_color" />
+
                 <TextView
                     android:id="@+id/txt_email_Profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/background"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="7dp"
+                    android:gravity="center"
                     android:hint="@string/email"
                     android:textColor="@color/main_color"
-                    android:textSize="25sp" />
-            </LinearLayout>
+                    android:textSize="25sp"
+                    app:drawableStartCompat="@drawable/ic_email"
+                    app:drawableTint="@color/main_color"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="7dp"
-                    android:textStyle="bold"
-                    android:text="@string/branch_name_text"
-                    android:textColor="@color/main_color"
-                    android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_branchName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/background"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="7dp"
+                    android:gravity="center"
                     android:hint="@string/branch_name"
                     android:textColor="@color/main_color"
-                    android:layout_marginTop="15dp"
-                    android:textSize="25sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="7dp"
-                    android:textStyle="bold"
-                    android:text="@string/branch_location_text"
-                    android:textColor="@color/main_color"
-                    android:textSize="25sp"/>
+                    android:textSize="25sp"
+                    app:drawableStartCompat="@drawable/ic_add_location"
+                    app:drawableTint="@color/main_color"/>
 
                 <TextView
                     android:id="@+id/txt_branchLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/background"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="7dp"
+                    android:gravity="center"
                     android:hint="@string/branch_location"
-                    android:layout_marginBottom="7dp"
                     android:textColor="@color/main_color"
-                    android:layout_marginTop="15dp"
-                    android:textSize="25sp" />
-            </LinearLayout>
+                    android:textSize="25sp"
+                    app:drawableStartCompat="@drawable/ic_location_on"
+                    app:drawableTint="@color/main_color"/>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="7dp"
-                    android:text="@string/the_capacity"
-                    android:textColor="@color/main_color"
-                    android:textStyle="bold"
-                    android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/txt_maxPeople"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/background"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="7dp"
                     android:hint="@string/max_people"
                     android:textColor="@color/main_color"
-                    android:layout_marginTop="15dp"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    app:drawableStartCompat="@drawable/ic_people"
+                    app:drawableTint="@color/main_color"/>
+
+
             </LinearLayout>
+
             <Switch
                 android:id="@+id/swPublish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/publish_the_store"
-                tools:ignore="UseSwitchCompatOrMaterialXml"
-                android:layout_gravity="center"
-                android:textSize="20sp"
-                android:layout_marginTop="30dp"
                 android:textColor="@color/main_color"
-                android:textStyle="bold"/>
-
-            <Button
-                android:id="@+id/btnEdit"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/btn_shape"
-                android:text="@string/edit"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <TextView
                 android:id="@+id/txtLogOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/loge_out"
+                android:textColor="@color/red"
                 android:textSize="17sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
                 app:drawableStartCompat="@drawable/ic_logout"
-                android:textColor="@color/red" />
+                app:layout_constraintEnd_toStartOf="@+id/swPublish"
+                app:layout_constraintTop_toBottomOf="@+id/swPublish" />
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_shape"
+                android:text="@string/edit"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLogOut" />
 
 
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

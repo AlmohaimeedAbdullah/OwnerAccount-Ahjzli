@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +30,7 @@ class SignIn : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sharedPreferences2: SharedPreferences
     private lateinit var rememberMe: CheckBox
+    private lateinit var progressBar: ProgressBar
     var checkBoxValue = false
 
 
@@ -49,6 +48,7 @@ class SignIn : Fragment() {
         enterThePass = view.findViewById(R.id.tiet_password_sign_in)
         dontHaveAccount = view.findViewById(R.id.txt_dont_have_account)
         signInButton = view.findViewById(R.id.btnSignIn)
+        progressBar = view.findViewById(R.id.progressBarSingIn)
 
         forgetPassword = view.findViewById(R.id.txt_forget_password)
         forgetPassword.setOnClickListener {
@@ -61,6 +61,8 @@ class SignIn : Fragment() {
 
         signInButton = view.findViewById(R.id.btnSignIn)
         signInButton.setOnClickListener {
+            signInButton.isClickable = false
+            progressBar.isVisible = true
             signIn()
         }
 
@@ -72,7 +74,6 @@ class SignIn : Fragment() {
         if (checkBoxValue){
             findNavController().navigate(SignInDirections.actionSignInToMainInterface())
         }
-
     }
 
     private fun  signIn(){
@@ -88,11 +89,15 @@ class SignIn : Fragment() {
                         // if the registration is not successful then show error massage
                         Toast.makeText(context, "Please make sure the values are correct, or fill the fields",
                             Toast.LENGTH_LONG).show()
+                        signInButton.isClickable = true
+                        progressBar.isVisible = false
                     }
                 }
         }else{
             Toast.makeText(context, "please enter all fields", Toast.LENGTH_LONG)
                 .show()
+            signInButton.isClickable = true
+            progressBar.isVisible = false
         }
     }
 
@@ -103,14 +108,14 @@ class SignIn : Fragment() {
         db.collection("StoreOwner").document("$uId").get()
             .addOnCompleteListener {
                 if (it.result?.exists()!!){
-                    Toast.makeText(context, "Sign in successful", Toast.LENGTH_LONG)
-                        .show()
                     getStoreInfo()
                     findNavController().navigate(SignInDirections.actionSignInToMainInterface())
                     checkBox()
                 }else{
                     Toast.makeText(context, "Please make sure the values are correct",
                         Toast.LENGTH_LONG).show()
+                    signInButton.isClickable = true
+                    progressBar.isVisible = false
                 }
             }
     }
@@ -126,7 +131,7 @@ class SignIn : Fragment() {
         editor.apply()
     }
 
-    fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
+    private fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
         val uId =FirebaseAuth.getInstance().currentUser?.uid
         try {
             val db = FirebaseFirestore.getInstance()
@@ -142,19 +147,18 @@ class SignIn : Fragment() {
                         val max = it.result!!.get("maxPeople")
 
                         //to save the info in the sp
-                        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
-                        editor3.putString("spStoreName",name.toString())
-                        editor3.putString("spEmail",ownerEmail.toString())
-                        editor3.putString("spBranchName",bName.toString())
-                        editor3.putString("spBranchLocation",bLocation.toString())
-                        editor3.putString("spMax",max.toString())
-                        editor3.apply()
+                        sharedPreferences2.edit()
+                        .putString("spStoreName",name.toString())
+                        .putString("spEmail",ownerEmail.toString())
+                        .putString("spBranchName",bName.toString())
+                        .putString("spBranchLocation",bLocation.toString())
+                        .putString("spMax",max.toString())
+                        .apply()
 
                     } else {
-                        Log.e("error \n", "errooooooorr")
+                        Log.e("error", "getStoreInfo")
                     }
                 }
-
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 // Toast.makeText(coroutineContext,0,0, e.message, Toast.LENGTH_LONG).show()

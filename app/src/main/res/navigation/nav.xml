@@ -69,6 +69,7 @@
         tools:layout="@layout/fragment_my_store" >
         <action
             android:id="@+id/action_myStore_to_signIn"
-            app:destination="@id/signIn" />
+            app:destination="@id/signIn"
+            app:popUpTo="@id/nav" />
     </fragment>
 </navigation>

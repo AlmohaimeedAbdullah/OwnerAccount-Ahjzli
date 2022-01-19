@@ -33,8 +33,7 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private  lateinit var addEventBar:FloatingActionButton
-    val uId = FirebaseAuth.getInstance().currentUser?.uid
-    private val db = Firebase.firestore.collection("Reservation")
+    private val db = Firebase.firestore
     private var enterNumber:Int = 1
     private  var maxP:Int=0
     private lateinit var sharedPreferences2: SharedPreferences
@@ -97,6 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun bottomSheetAdd() {
         val view: View = layoutInflater.inflate(R.layout.bottom_sheet_add,null)
         val builder = BottomSheetDialog(this)
+        val uId = FirebaseAuth.getInstance().currentUser?.uid
 
         val cusName1: EditText = view.findViewById(R.id.et_costumerName_add)
         val cusNumber1: EditText = view.findViewById(R.id.et_phoneNumber_add)
@@ -128,7 +128,6 @@ class MainActivity : AppCompatActivity() {
                             .get().addOnCompleteListener {
 
                                 if (it.result?.exists()!!) {
-
                                     val max = it.result!!.get("maxPeople")
                                     maxP = max.toString().toInt()
                                     enterNumber = cusPeople1.text.toString().toInt()
@@ -149,13 +148,8 @@ class MainActivity : AppCompatActivity() {
                                             ).show()
                                         }
                                     }
-                                    Toast.makeText(
-                                        this@MainActivity,
-                                        "maxPeople ${maxP}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
                                 } else {
-                                    Log.e("error \n", "errooooooorr")
+                                    Log.e("error", "isn't exists")
                                 }
                             }
                         builder.dismiss()
@@ -193,27 +187,25 @@ class MainActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         val upDateUserData = Firebase.firestore.collection("StoreOwner")
         upDateUserData.document("$uid").update("maxPeople", maxP)
-        Toast.makeText(this, "$maxP", Toast.LENGTH_SHORT).show()
         sharedPreferences2 = this.getSharedPreferences(
             "OwnerProfile", Context.MODE_PRIVATE)
-        val editor3:SharedPreferences.Editor = sharedPreferences2.edit()
-        editor3.putString("spMax","$maxP")
-        editor3.apply()
+        sharedPreferences2.edit()
+        .putString("spMax","$maxP")
+        .apply()
     }
 
     //save to the fire store
-    fun saveCustomerToTheStore(cus: AddCustomerData) =
+    private fun saveCustomerToTheStore(cus: AddCustomerData) =
         CoroutineScope(Dispatchers.IO).launch {
         try {
-            db.document(cus.idRq).set(cus)
+            db.collection("Reservation").document(cus.idRq).set(cus)
             withContext(Dispatchers.Main) {
                 upDateTheNumberOfPeople(maxP)
-                Toast.makeText(this@MainActivity, "customer add", Toast.LENGTH_LONG).show()
             }
 
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+                Log.d("error", "${e.message}" )
             }
         }
     }

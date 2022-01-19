@@ -10,10 +10,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -31,8 +27,9 @@ import java.lang.Exception
 import android.app.Activity
 
 import android.R.attr.data
-
-
+import android.annotation.SuppressLint
+import android.widget.*
+import androidx.core.view.isVisible
 
 
 const val LAUNCH_SECOND_ACTIVITY = 0
@@ -47,6 +44,8 @@ class Register : Fragment() {
     private lateinit var signUpButton:Button
     private lateinit var haveAccount: TextView
     private lateinit var sharedPreferences2: SharedPreferences
+    private lateinit var progressBar: ProgressBar
+
 
 
     override fun onCreateView(
@@ -69,12 +68,15 @@ class Register : Fragment() {
         enterBranchLocation= view.findViewById(R.id.et_branch_location)
         signUpButton= view.findViewById(R.id.btnSignUp)
         haveAccount = view.findViewById(R.id.txt_have_account)
+        progressBar = view.findViewById(R.id.progressBarRegister)
 
         haveAccount.setOnClickListener {
             findNavController().navigate(RegisterDirections.actionRegisterToSignIn())
         }
 
         signUpButton.setOnClickListener {
+            signUpButton.isClickable = false
+            progressBar.isVisible = true
             registerUser()
         }
         enterBranchLocation.setOnClickListener {
@@ -85,21 +87,21 @@ class Register : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode === LAUNCH_SECOND_ACTIVITY) {
-            if (resultCode === Activity.RESULT_OK) {
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if (resultCode == Activity.RESULT_OK) {
                 val latitude: String? = data?.getStringExtra("latitude")
                 val longitude: String? = data?.getStringExtra("longitude")
                 Log.e("testLatAndLon","$latitude , $longitude")
                 enterBranchLocation.setText("$latitude , $longitude")
             }
-            if (resultCode === Activity.RESULT_CANCELED) {
+            if (resultCode == Activity.RESULT_CANCELED) {
                 // Write your code if there's no result
                 Log.e("cancel","canceled")
             }
         }
-        Log.e("out","out")
 
     }
 
@@ -117,25 +119,24 @@ class Register : Fragment() {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(context, "You were registered successful", Toast.LENGTH_LONG)
-                            .show()
-
                         val uidOwner =FirebaseAuth.getInstance().currentUser?.uid
                         val account = OwnerData(uidOwner.toString(), storeName, email,branchName,branchLocation)
                         saveStore(account)
-
                     } else {
                         // if the registration is not successful then show error massage
                         Toast.makeText(
                             context, "Please make sure the values are correct, or fill the fields",
                             Toast.LENGTH_LONG
                         ).show()
-
+                        signUpButton.isClickable = true
+                        progressBar.isVisible = false
                     }
                 }
         } else {
             Toast.makeText(context, "please enter all fields", Toast.LENGTH_LONG)
                 .show()
+            signUpButton.isClickable = true
+            progressBar.isVisible = false
         }
     }
 
@@ -150,7 +151,6 @@ class Register : Fragment() {
             withContext(Dispatchers.Main) {
                 getStoreInfo()
                 findNavController().navigate(RegisterDirections.actionRegisterToMainInterface())
-                Toast.makeText(context, "saved data", Toast.LENGTH_LONG).show()
             }
 
         } catch (e: Exception) {
@@ -159,7 +159,7 @@ class Register : Fragment() {
             }
         }
     }
-    fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
+    private fun getStoreInfo() = CoroutineScope(Dispatchers.IO).launch {
         val uId = FirebaseAuth.getInstance().currentUser?.uid
         try {
             val db = FirebaseFirestore.getInstance()
@@ -175,17 +175,16 @@ class Register : Fragment() {
                         val max = it.result!!.get("maxPeople")
 
                         //to save the info in the sp
-
-                        val editor3: SharedPreferences.Editor = sharedPreferences2.edit()
-                        editor3.putString("spStoreName",name.toString())
-                        editor3.putString("spEmail",ownerEmail.toString())
-                        editor3.putString("spBranchName",bName.toString())
-                        editor3.putString("spBranchLocation",bLocation.toString())
-                        editor3.putString("spMax",max.toString())
-                        editor3.apply()
+                        sharedPreferences2.edit()
+                        .putString("spStoreName",name.toString())
+                        .putString("spEmail",ownerEmail.toString())
+                        .putString("spBranchName",bName.toString())
+                        .putString("spBranchLocation",bLocation.toString())
+                        .putString("spMax",max.toString())
+                        .apply()
 
                     } else {
-                        Log.e("error \n", "errooooooorr")
+                        Log.e("error", "getStoreInfo")
                     }
                 }
 
