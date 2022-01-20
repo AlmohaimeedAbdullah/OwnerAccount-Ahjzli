@@ -85,7 +85,6 @@ class MyStore : Fragment() {
         switch.isChecked = switchValue
         switch.setOnCheckedChangeListener { _, isChecked ->
             val publish: Boolean = isChecked
-            Toast.makeText(context, publish.toString(),Toast.LENGTH_SHORT).show()
             ifPublish(publish)
         }
 

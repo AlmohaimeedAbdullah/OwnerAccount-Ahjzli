@@ -33,7 +33,6 @@ class SignIn : Fragment() {
     private lateinit var progressBar: ProgressBar
     var checkBoxValue = false
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -154,7 +153,6 @@ class SignIn : Fragment() {
                         .putString("spBranchLocation",bLocation.toString())
                         .putString("spMax",max.toString())
                         .apply()
-
                     } else {
                         Log.e("error", "getStoreInfo")
                     }
