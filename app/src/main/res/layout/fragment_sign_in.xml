@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bk1"
+    tools:context=".registeration.SignIn">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="@string/ahjzli"
+        android:textColor="@color/background"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/sign_in"
+                    android:textColor="@color/main_color"
+                    android:textSize="50sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:textColorHint="@color/main_color"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/main_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_email_sign_in"
+                        android:layout_width="301dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_silver"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/main_color"
+                        android:textSize="25sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:textColorHint="@color/main_color"
+                    app:passwordToggleEnabled="true"
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/main_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_password_sign_in"
+                        android:layout_width="301dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/light_silver"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/main_color"
+                        android:textSize="25sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/cbRememberMe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="54dp"
+                        android:minHeight="48dp"
+                        android:text="@string/remember_me"
+                        android:textColor="@color/main_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="17dp"
+                        android:text="@string/forget"
+                        android:textColor="@color/text_main_color" />
+
+                    <TextView
+                        android:id="@+id/txt_forget_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="17dp"
+                        android:text="@string/password_with_q_mark"
+                        android:textColor="@color/main_color" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSignIn"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/btn_shape"
+                    android:text="@string/sign_in"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/you_don_t_have_an"
+                        android:textColor="@color/text_main_color" />
+
+                    <TextView
+                        android:id="@+id/txt_dont_have_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="3dp"
+                        android:text="@string/account"
+                        android:textColor="@color/main_color" />
+                </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/progressBarSingIn"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginBottom="70dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

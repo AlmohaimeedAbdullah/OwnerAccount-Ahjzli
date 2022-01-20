@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "885451451388",
+    "project_id": "ahjzli-app",
+    "storage_bucket": "ahjzli-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885451451388:android:3b1ee9548ef7f4faa9a079",
+        "android_client_info": {
+          "package_name": "com.tuwaiq.owneraccount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885451451388-ftc1uncrq3183887r92acqoap1e628eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8FjRw5JLT9NFagQyxQjQufy6yFYdALRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885451451388-ftc1uncrq3183887r92acqoap1e628eh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885451451388:android:5f298c6a8839f2fea9a079",
+        "android_client_info": {
+          "package_name": "com.tuwaiq.useraccount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885451451388-ftc1uncrq3183887r92acqoap1e628eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8FjRw5JLT9NFagQyxQjQufy6yFYdALRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885451451388-ftc1uncrq3183887r92acqoap1e628eh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
