@@ -156,10 +156,6 @@ libraries:
 owner account ->
 email: su@gmail.com
 pass: 123456
----------------------
-user account ->
-email: s@gmail.com
-pass: 123456
 
 
 ## :camera_flash: Screenshots
