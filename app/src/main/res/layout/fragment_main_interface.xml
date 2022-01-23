@@ -10,9 +10,8 @@
     <FrameLayout
         android:id="@+id/frameLayoutInInterface"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/background"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineInInterface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,11 +24,13 @@
                 android:id="@+id/lottieAnimationView"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
-                android:layout_marginStart="68dp"
+                android:layout_marginVertical="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.279"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.533"
+                app:layout_constraintVertical_bias="0.0"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/splash"
@@ -54,12 +55,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineInInterface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reservationRV"
